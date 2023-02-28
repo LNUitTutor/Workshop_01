@@ -1,0 +1,86 @@
+using System;
+using System.Numerics;
+
+namespace Workshop_01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(int.MaxValue);
+            unchecked { Console.WriteLine(int.MaxValue + 1); }
+            Task_3();
+            Task_3();
+        }
+        /* Задано натуральне число. Скільки цифр є в його десятковому записі?
+         * Запропонувати хоча б три способи визначення.
+         */
+        static void Task_1()
+        {
+            Console.Write("Введіть натуральне: ");
+            uint number = uint.Parse(Console.ReadLine());
+            string str = number.ToString();
+            int n = str.Length;
+            Console.WriteLine($"Число {number} має {n} цифр");
+
+            uint numberCopy = number;
+            uint counter = 0;
+            while(numberCopy > 0)
+            {
+                numberCopy /= 10;
+                counter++;
+            }
+            Console.WriteLine($"Число {number} має {counter} цифр");
+
+            uint num = (uint)Math.Log10(number) + 1;
+            Console.WriteLine($"Число {number} має {num} цифр");
+        }
+        /* Ціна дрона фіксована. Волонтери зібрали money грошей.
+         * Надрукуйте фразу "Ми купили k дронів", (k залежить від money)
+         * узгоджуючи закінчення слів.
+         */
+        static void Task_2()
+        {
+            const uint price = 235;
+            Console.Write("Введіть натуральне: ");
+            uint money = uint.Parse(Console.ReadLine());
+            uint n = money / price;
+
+            if(11<=n && n <= 19)
+            {
+                Console.WriteLine($"Ми купили {n} дронів");
+                return;
+            }
+            switch(n%10)
+            {
+                case 1:
+                    Console.WriteLine($"Ми купили {n} дрон");
+                    break;
+                case 2:
+                case 3:
+                case 4:
+                    Console.WriteLine($"Ми купили {n} дрони");
+                    break;
+                default:
+                    Console.WriteLine($"Ми купили {n} дронів");
+                    break;
+            }
+        }
+        /* Задано натуральне n. Обчислити f_n - n-те число Фібоначчі
+         */
+        static void Task_3()
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            BigInteger a = 1, b = 1;
+            BigInteger c = 0;
+            for(int i = 2; i <= n; i++)
+            {
+                c = a + b;
+                a = b; b = c;
+            }
+            Console.WriteLine($"f_{n} = {b}");
+
+        }
+    }
+}
